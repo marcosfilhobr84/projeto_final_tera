@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
-import Body from "../organisms/Body";
+import Login from "../organisms/Login";
 
-export default function Home() {
+export default function () {
   return (
     <div>
       <Header />
-      <Body />
+      <Login />
       <Footer />
     </div>
   );

@@ -1,4 +1,6 @@
-//import React from "react";
+import React from "react";
+
+import { Link } from "react-router-dom";
 
 export default function Welcome() {
   return (
@@ -12,8 +14,8 @@ export default function Welcome() {
           possível, inicie um curso e se surpreenda.
         </p>
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-          <a
-            href="#"
+          <Link
+            to="/"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
           >
             Comece aqui
@@ -32,13 +34,13 @@ export default function Welcome() {
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
             </svg>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/cursos"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             Saiba mais
-          </a>
+          </Link>
         </div>
       </div>
     </section>

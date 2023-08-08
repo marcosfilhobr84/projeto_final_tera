@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "../organisms/Header";
+import Register from "../organisms/Register";
 import Footer from "../organisms/Footer";
-import Body from "../organisms/Body";
 
-export default function Home() {
+export default function RegisterPage() {
   return (
     <div>
       <Header />
-      <Body />
+      <Register />
       <Footer />
     </div>
   );

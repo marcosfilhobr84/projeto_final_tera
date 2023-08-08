@@ -1,4 +1,4 @@
-//import React from "react";
+import React from "react";
 import CarouselHome from "../molecules/CarouselHome";
 import Welcome from "../molecules/Welcome";
 
