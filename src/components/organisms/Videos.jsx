@@ -11,7 +11,7 @@ function Timeline(propriedades) {
   // Statement
   // Retorno por expressão
   return (
-    <div className="max-w-screen-xl grid grid-cols-3 md:grid-cols-2 gap-2 mt-20 content-center mx-auto p-4 ">
+    <div className="max-w-screen-xl grid grid-cols-3 md:grid-cols-2 gap-2 mt-5 content-center mx-auto p-4 ">
       {playlistNames.map((playlistName) => {
         const videos = propriedades.playlists[playlistName];
         console.log(playlistName);
@@ -22,12 +22,16 @@ function Timeline(propriedades) {
             <div>
               {videos.map((video) => {
                 return (
-                  <a href={video.url} key={video.url} className="col-span-2">
-                    <img src={video.thumb} />
-                    <span>{video.title}</span>
-                    <br></br>
-                    <br></br>
-                  </a>
+                  <div className="flex justify-center">
+                    <a href={video.url} key={video.url} className="col-span-2">
+                      <img src={video.thumb} width="620" height="408" />
+                      <span className="text-align: justify text-clip overflow-hidden">
+                        {video.title}
+                      </span>
+                      <br></br>
+                      <br></br>
+                    </a>
+                  </div>
                 );
               })}
             </div>
