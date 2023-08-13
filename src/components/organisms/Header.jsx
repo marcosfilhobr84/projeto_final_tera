@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <nav className="bg-white dark:bg-gray-900 border-b-2 border-x-slate-400">
+    <nav className="bg-white dark:bg-gray-900 border-x-slate-400">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-2">
           <svg
