@@ -5,7 +5,7 @@ import Login from "../organisms/Login";
 
 export default function () {
   return (
-    <div>
+    <div className="flex flex-col h-screen justify-between">
       <Header />
       <Login />
       <Footer />

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Register() {
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-12 mb-auto">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,6 @@ export default function Register() {
               />
             </div>
           </div>
-
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -66,7 +65,6 @@ export default function Register() {
               />
             </div>
           </div>
-
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -87,7 +85,6 @@ export default function Register() {
               />
             </div>
           </div>
-
           <div>
             <button
               type="submit"

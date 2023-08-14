@@ -8,11 +8,11 @@ export default function Courses() {
   return (
     <div>
       <Header />
-      <div className="grid grid-cols-8 gap-2">
-        <div className="col-span-1">
+      <div className="grid xl:grid-cols-8 gap-2">
+        <aside className="invisible sticky col-span-1 xl:visible">
           <Sidebar />
-        </div>
-        <div className="col-span-7">
+        </aside>
+        <div className="xl:col-span-7">
           <Videos />
         </div>
       </div>

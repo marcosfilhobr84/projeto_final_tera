@@ -5,7 +5,7 @@ import Footer from "../organisms/Footer";
 
 export default function RegisterPage() {
   return (
-    <div>
+    <div className="flex flex-col h-screen justify-between">
       <Header />
       <Register />
       <Footer />
