@@ -23,7 +23,7 @@ export default function CarouselHome() {
   }, [currentImage]);
 
   return (
-    <div className="relative items-center max-w-screen-xl mx-auto p-4">
+    <div className="relative items-center max-w-screen-xl mx-auto p-4 ">
       <div
         className="relative h-56 overflow-hidden rounded-lg md:h-96"
         data-carousel-item="active"

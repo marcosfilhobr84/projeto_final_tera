@@ -8,7 +8,7 @@ export default function Courses() {
   return (
     <div>
       <Header />
-      <div className="grid xl:grid-cols-8 gap-2">
+      <div className="grid xl:grid-cols-8 gap-">
         <aside className="invisible sticky col-span-1 xl:visible">
           <Sidebar />
         </aside>
