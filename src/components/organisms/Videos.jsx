@@ -46,7 +46,9 @@ let playlists = dados.playlists;
 //   );
 // }
 
-function Timeline(propriedades) {
+function Timeline(propriedades, playlist) {
+  // console.log(playlist);
+
   const playlistNames = Object.keys(propriedades.playlists);
 
   class registroVideo {
@@ -81,15 +83,24 @@ function Timeline(propriedades) {
 
   playlistNames.map((playlistName) => {
     const videos = propriedades.playlists[playlistName];
-    videos.map((video) => {
-      registro.newVideo(video.thumb, video.title, video.url);
-    });
+    // console.log(playlist.nome);
+    if (playlist.nome == null) {
+      videos.map((video) => {
+        registro.newVideo(video.thumb, video.title, video.url);
+      });
+    } else {
+      if (playlist.nome == playlistName) {
+        videos.map((video) => {
+          registro.newVideo(video.thumb, video.title, video.url);
+        });
+      }
+    }
   });
 
   //console.log(registro);
-  registro.todosVideos.map((element) => {
-    console.log(element);
-  });
+  // registro.todosVideos.map((element) => {
+  //   console.log(element);
+  // });
 
   return (
     <section className="max-w-screen-xl grid grid-cols-1 xl:grid-cols-2 gap-2 mt-2 content-center mx-auto p-4 ">
@@ -99,19 +110,13 @@ function Timeline(propriedades) {
             className="flex flex-wrap justify-center box-content h-200 w-200 p-4"
             key={element.url}
           >
-            {/* <Link to={element.url} key={element.url} className="col-span-2">
-              <img src={element.thumb} width="620" height="408" />
-              <p className="text-align: justify overflow-hidden w-580 h-12">
-                {element.title}
-              </p>
-            </Link> */}
             <iframe
               className="aspect-video lg:h-80"
               src={element.url}
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
         );
@@ -122,11 +127,12 @@ function Timeline(propriedades) {
 
 //Timeline2(dados);
 
-export default function Videos() {
+export default function Videos(props) {
+  // console.log(props);
   return (
     //<div className="container mx-auto p-4">
 
-    <div>{Timeline(dados)}</div>
+    <div>{Timeline(dados, props)}</div>
     //    </div>
   );
 }

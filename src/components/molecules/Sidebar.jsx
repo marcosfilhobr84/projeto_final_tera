@@ -1,5 +1,95 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import dados from "../../../dados.json";
+
+function returnAllVideos(propriedades, typeVideos) {
+  const playlistNames = Object.keys(propriedades.playlists);
+  //const [isShown, setIsShown] = useState(false);
+
+  class registroVideo {
+    constructor(thumb, title, url) {
+      this.thumb = thumb;
+      this.title = title;
+      this.url = url;
+    }
+  }
+
+  // Class da lista de videos
+  class listaVideos {
+    constructor() {
+      this.listaVideos = [];
+    }
+    // cria um novo video na coleção
+    newVideo(thumb, title, url) {
+      let p = new registroVideo(thumb, title, url);
+      this.listaVideos.push(p);
+      return p;
+    }
+    get todosVideos() {
+      return this.listaVideos;
+    }
+    // retorna o numero de videos.
+    get numberOfVideos() {
+      return this.listaVideos.length;
+    }
+  }
+
+  let registro = new listaVideos();
+
+  playlistNames.map((playlistName) => {
+    const videos = propriedades.playlists[playlistName];
+    if (playlistName === typeVideos) {
+      videos.map((video) => {
+        registro.newVideo(video.thumb, video.title, video.url);
+      });
+    }
+  });
+
+  // //console.log(registro);
+  // registro.todosVideos.map((element) => {
+  //   console.log(element);
+  // });
+
+  return registro.todosVideos;
+}
+
+function returnPlaylists(propriedades) {
+  let listaPlaylists = [];
+  const playlistNames = Object.keys(propriedades.playlists);
+  playlistNames.map((playlistName) => {
+    listaPlaylists.push(playlistName);
+  });
+
+  return (
+    <>
+      {listaPlaylists.map((nome) => (
+        <Link
+          className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
+          to={`/cursos/${nome}`}
+          key={nome}
+        >
+          <svg
+            className="w-6 h-6 stroke-current"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+            />
+          </svg>
+          <span className="ml-2 text-sm font-medium">{nome}</span>
+        </Link>
+      ))}
+    </>
+  );
+}
+
+//console.log(returnPlaylists(dados));
 
 export default function Sidebar() {
   return (
@@ -41,95 +131,10 @@ export default function Sidebar() {
         </svg>
         <span className="ml-2 text-sm font-bold">Cursos</span>
       </div>
+
       <div className="w-full px-2">
         <div className="flex flex-col items-center w-full mt-3 border-t border-gray-700">
-          <Link
-            className="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
-            href="#"
-          >
-            <svg
-              className="w-6 h-6 stroke-current"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
-              />
-            </svg>
-            <span className="ml-2 text-sm font-medium">Áreas</span>
-
-            {/* <li>
-              <button
-                type="button"
-                class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                aria-controls="dropdown-example"
-                data-collapse-toggle="dropdown-example"
-              >
-                <svg
-                  class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <span
-                  class="flex-1 ml-3 text-left whitespace-nowrap"
-                  sidebar-toggle-item
-                >
-                  E-commerce
-                </span>
-                <svg
-                  sidebar-toggle-item
-                  class="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-              <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
-                  >
-                    Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
-                  >
-                    Billing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
-                  >
-                    Invoice
-                  </a>
-                </li>
-              </ul>
-            </li> */}
-          </Link>
+          {returnPlaylists(dados)}
         </div>
       </div>
     </div>
