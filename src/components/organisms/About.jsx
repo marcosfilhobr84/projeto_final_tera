@@ -1,8 +1,8 @@
 import React from "react";
-
+//max-w-screen-xl
 export default function About() {
   return (
-    <div className="container max-w-screen-xl mx-auto p-4 max-h-max overflow-auto">
+    <div className="container mx-auto p-4 max-h-max max-w-screen-xl	overflow-auto">
       <h1 className="text-gray-900 text-3xl font-extrabold mb-2 text-left tracking-widest">
         UM NOVO FUTURO PARA
         <br />
@@ -20,8 +20,8 @@ export default function About() {
       </button>
 
       <div className="gap-2 mt-10 flex justify-center">
-        <div className="border-double border-4 border-gray-900 p-4 hover:scale-105 cursor-pointer">
-          <h1 className="text-gray-900 text-3xl font-extrabold mb-2 text-center tracking-widest">
+        <div className="border-double border-4 border-gray-900 p-4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 cursor-pointer">
+          <h1 className="text-gray-900 text-3xl font-extrabold mb-2 text-center tracking-widest ">
             O QUE ESPERAR DA ULEARN
           </h1>
           <p className="text-gray-900 text-base mb-4">
@@ -56,7 +56,7 @@ export default function About() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-8">
-          <div className="dark:bg-gray-900 rounded-md p-2">
+          <div className="dark:bg-gray-900 rounded-md p-2 transition ease-in-out delay-150 hover:-translate-y-2 hover:scale-1 duration-300">
             <h2 className="text-emerald-400 font-extrabold text-lg mb-2">
               APRENDA NA PRÁTICA
             </h2>
@@ -67,7 +67,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="dark:bg-gray-900 rounded-md p-2">
+          <div className="dark:bg-gray-900 rounded-md p-2 transition ease-in-out delay-150 hover:-translate-y-2 hover:scale-1 duration-300">
             <h2 className="text-emerald-400 font-extrabold text-lg mb-2">
               SUPORTE EM TEMPO REAL
             </h2>
@@ -79,7 +79,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="dark:bg-gray-900 rounded-md p-2">
+          <div className="dark:bg-gray-900 rounded-md p-2 transition ease-in-out delay-150 hover:-translate-y-2 hover:scale-1 duration-300">
             <h2 className="text-emerald-400 font-extrabold text-lg mb-2">
               CONTEÚDO ATUALIZADO
             </h2>
@@ -92,7 +92,7 @@ export default function About() {
         </div>
       </div>
       <div className="gap-2 mt-10 flex justify-center">
-        <div className="border-double border-4 border-gray-900 p-4 hover:scale-105">
+        <div className="border-double border-4 border-gray-900 p-4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
           <h1 className="text-gray-900 text-3xl font-extrabold mb-2 text-center tracking-widest">
             APRENDA COM A ULEARN
           </h1>
@@ -144,7 +144,7 @@ export default function About() {
       </h1>
 
       <div className="flex flex-col gap-2 md:grid md:grid-cols-4">
-        <div className="bg-gray-900/70 rounded-md p-3 h-auto mt-4 hover:scale-y-110">
+        <div className="bg-gray-900/70 rounded-md p-3 h-auto mt-4 transition ease-in-out delay-150 hover:-translate-y-3 hover:scale-1 duration-300">
           <h3 className="text-xl font-bold text-emerald-400">
             Vinicius Almeida
           </h3>
@@ -159,7 +159,7 @@ export default function About() {
           </span>
         </div>
 
-        <div className="bg-gray-900/70 rounded-md p-3 h-auto float-right mt-4 hover:scale-y-110">
+        <div className="bg-gray-900/70 rounded-md p-3 h-auto float-right mt-4 transition ease-in-out delay-150 hover:-translate-y-3 hover:scale-1 duration-300">
           <h3 className="text-xl font-bold text-emerald-400">
             Marcos Cavalcanti
           </h3>
@@ -174,7 +174,7 @@ export default function About() {
           </span>
         </div>
 
-        <div className="bg-gray-900/70 rounded-md p-3 float-left mt-4 hover:scale-y-110">
+        <div className="bg-gray-900/70 rounded-md p-3 float-left mt-4 transition ease-in-out delay-150 hover:-translate-y-3 hover:scale-1 duration-300">
           <h3 className="text-xl font-bold text-emerald-400">
             Pablo Hernandez
           </h3>
@@ -189,13 +189,13 @@ export default function About() {
           </span>
         </div>
 
-        <div className="bg-gray-900/70 rounded-md p-3 float-right mt-4 hover:scale-y-110">
+        <div className="bg-gray-900/70 rounded-md p-3 float-right mt-4 transition ease-in-out delay-150 hover:-translate-y-3 hover:scale-1 duration-300">
           <h3 className="text-xl font-bold text-emerald-400">Maxwell Leal</h3>
           <p className="text-sm text-gray-200 italic">
-            “Quando entrei no mercado de trabalho, que foi graças a conexões que
-            realizei dentro do ecossistema da Ulearn, também percebi que o
-            conhecimento técnico que nos foi passado é realmente de excelente
-            qualidade.”
+            “Sou da turma 12 e posso dizer, com certeza, que o conteúdo é muito
+            completo, é uma formação de excelência! Em 1 mês se aprende mais
+            coisa do que em um semestre em cursos tradicionais, é realmente
+            enriquecedor!”.
           </p>
           <span className="font-bold text-emerald-300 text-sm">
             Aluno Ulearn
