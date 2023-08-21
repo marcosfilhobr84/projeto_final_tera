@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dados from "../../../dados.json";
 import { Link } from "react-router-dom";
+import api from "../helpers/api";
 
 let playlists = dados.playlists;
 
@@ -128,6 +129,19 @@ function Timeline(propriedades, playlist) {
 //Timeline2(dados);
 
 export default function Videos(props) {
+  const [video, setVideos] = useState();
+
+  useEffect(() => {
+    api.get("/courses/").then((response) => {
+      setVideos(response.data);
+    });
+  }, []);
+
+  if (!video) return null;
+
+  console.log(video);
+  console.log(video[0].playlist);
+
   // console.log(props);
   return (
     //<div className="container mx-auto p-4">

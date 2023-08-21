@@ -17,19 +17,22 @@ export default function () {
     const password = passwordInputRef.current.value;
 
     const data = await api
-      .get("/auth/login", {
+      .post("/auth/login", {
         email: email,
         password: password,
       })
       .then((response) => {
         setResposta(response.data);
-        //alert("Conta Criada, realize login para continuar");
+        alert("Login realizado!");
         //navigate("/login");
-        console.log(response);
+        console.log(response.data.token);
+        //grava token no local storage
+        window.localStorage.setItem("token", response.data.token);
+        navigate("/cursos");
       })
       .catch((err) => {
         console.log("ops, ocorreu um erro! " + err);
-        alert("Erro ao cadastrar: " + err.response.data.message);
+        alert("Erro dados incorretos: " + err.response.data.message);
       });
   };
 
