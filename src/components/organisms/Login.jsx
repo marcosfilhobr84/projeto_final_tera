@@ -1,7 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import api from "../helpers/api";
 
 export default function () {
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  const [registerSucess, SetRegisterSucess] = useState(false);
+  const [resposta, setResposta] = useState([]);
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    //setIsLoading(true);
+
+    const email = emailInputRef.current.value;
+    const password = passwordInputRef.current.value;
+
+    const data = await api
+      .get("/auth/login", {
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        setResposta(response.data);
+        //alert("Conta Criada, realize login para continuar");
+        //navigate("/login");
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log("ops, ocorreu um erro! " + err);
+        alert("Erro ao cadastrar: " + err.response.data.message);
+      });
+  };
+
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-12 mb-auto ">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -40,8 +71,9 @@ export default function () {
                 name="email"
                 type="email"
                 autoComplete="email"
+                ref={emailInputRef}
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -69,8 +101,9 @@ export default function () {
                 name="password"
                 type="password"
                 autoComplete="current-password"
+                ref={passwordInputRef}
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -79,6 +112,7 @@ export default function () {
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleFormSubmit}
             >
               Entrar
             </button>

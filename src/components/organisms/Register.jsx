@@ -1,49 +1,138 @@
-import React, { useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import api from "../helpers/api";
 
-// SALT should be created ONE TIME upon sign up
-//const salt = bcrypt.genSaltSync(10);
-
-async function createUserApi(name, email, password) {
-  try {
-    const response = await fetch(
-      "https://apimax2-lealmax.vercel.app/api/users",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: email,
-          email: email,
-          password: password,
-        }),
-      }
-    );
-    const resposta = await response.json();
-    console.log("Success:", resposta);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
+import Sucess from "../molecules/Sucess";
+import Failure from "../molecules/Failure";
 
 export default function Register() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const passwordInputRefConfirm = useRef();
+  const [registerSucess, SetRegisterSucess] = useState(false);
+  const [resposta, setResposta] = useState([]);
+  const navigate = useNavigate();
 
-  async function handleLoginForm() {
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    //setIsLoading(true);
+
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
     const passwordConfirm = passwordInputRefConfirm.current.value;
-    //const hashedPassword = bcrypt.hashSync(password, salt); // hash created previously created upon sign up
 
     if (password !== passwordConfirm) {
       alert("Senhas não conferem");
     } else {
-      createUserApi(email, email, password);
+      const data = await api
+        .post("/users/", {
+          name: email,
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          setResposta(response.data);
+          alert("Conta Criada, realize login para continuar");
+          navigate("/login");
+        })
+        .catch((err) => {
+          console.log("ops, ocorreu um erro! " + err);
+          alert("Erro ao cadastrar: " + err.response.data.message);
+        });
     }
-  }
+  };
+
+  // useEffect(() => {
+  //   handleFormSubmit;
+  // }, []);
+
+  //console.log(resposta);
+
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
+  //   //setIsLoading(true);
+
+  //   const email = emailInputRef.current.value;
+  //   const password = passwordInputRef.current.value;
+  //   const passwordConfirm = passwordInputRefConfirm.current.value;
+
+  //   if (password !== passwordConfirm) {
+  //     alert("Senhas não conferem");
+  //   } else {
+  //     fetch("https://apitera-lealmax.vercel.app/api/users/", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         name: email,
+  //         email: email,
+  //         password: password,
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         if (data.message !== "Erro ao criar usuário.") {
+  //           if (data.name !== null) {
+  //             console.log(data);
+  //             SetRegisterSucess(true);
+  //             alert("Cadastro realizado");
+  //             setResposta(data);
+  //             console.log(resposta);
+  //           }
+
+  //           //va para a rota x
+  //         } else {
+  //           alert(data.error);
+  //           console.log(data);
+  //         }
+  //       });
+  //     console.log(resposta);
+  //   }
+  // };
+
+  // async function handleLoginForm() {
+  //   SetRegisterSucess(false);
+  //   setResposta([]);
+  //   const email = emailInputRef.current.value;
+  //   const password = passwordInputRef.current.value;
+  //   const passwordConfirm = passwordInputRefConfirm.current.value;
+  //   //const hashedPassword = bcrypt.hashSync(password, salt); // hash created previously created upon sign up
+
+  //   if (password !== passwordConfirm) {
+  //     alert("Senhas não conferem");
+  //   } else {
+  //     //createUserApi(email, email, password);
+  //     fetch("https://apitera-lealmax.vercel.app/api/users/", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         name: email,
+  //         email: email,
+  //         password: password,
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         if (data.message !== "Erro ao criar usuário.") {
+  //           if (data.name !== null) {
+  //             console.log(data.message);
+  //             SetRegisterSucess(true);
+  //             alert("Cadastro realizado");
+  //             setResposta(data);
+  //             console.log(resposta);
+  //           }
+
+  //           //va para a rota x
+  //         } else {
+  //           alert(data.error);
+  //         }
+  //       });
+  //   }
+  // }
 
   return (
     <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:px-12 mb-auto">
@@ -135,10 +224,7 @@ export default function Register() {
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLoginForm();
-              }}
+              onClick={handleFormSubmit}
             >
               Crie uma conta
             </button>
