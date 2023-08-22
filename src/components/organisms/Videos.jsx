@@ -1,61 +1,16 @@
 import React, { useEffect, useState } from "react";
-import dados from "../../../dados.json";
-import { Link } from "react-router-dom";
 import api from "../helpers/api";
+import Loading from "../molecules/Loading";
 
-let playlists = dados.playlists;
-
-//console.log(playlists);
-
-// function Timeline(propriedades) {
-//   // console.log("Dentro do componente", propriedades.playlists);
-//   const playlistNames = Object.keys(propriedades.playlists);
-//   // Statement
-//   // Retorno por expressão
-//   return (
-//     <section
-//       className="max-w-screen-xl grid grid-cols-3 md:grid-cols-2 gap-2 mt-5 content-center mx-auto p-4 "
-//       key={propriedades.playlists}
-//     >
-//       {playlistNames.map((playlistName) => {
-//         const videos = propriedades.playlists[playlistName];
-//         {
-//           /* console.log(playlistName);
-//         console.log(videos); */
-//         }
-//         return (
-//           <div>
-//             {videos.map((video) => {
-//               return (
-//                 <div
-//                   className="flex flex-wrap justify-center box-content h-200 w-200 p-4"
-//                   key={video.url}
-//                 >
-//                   <Link href={video.url} key={video.url} className="col-span-2">
-//                     <img src={video.thumb} width="620" height="408" />
-//                     <p className="text-align: justify overflow-hidden w-580 h-12">
-//                       {video.title}
-//                     </p>
-//                   </Link>
-//                 </div>
-//               );
-//             })}
-//           </div>
-//         );
-//       })}
-//     </section>
-//   );
-// }
-
-function Timeline(propriedades, playlist) {
+function Timeline(videos, playlistName) {
   // console.log(playlist);
 
-  const playlistNames = Object.keys(propriedades.playlists);
+  //console.log(videos);
 
   class registroVideo {
-    constructor(thumb, title, url) {
-      this.thumb = thumb;
-      this.title = title;
+    constructor(_id, playlist, url) {
+      this._id = _id;
+      this.playlist = playlist;
       this.url = url;
     }
   }
@@ -66,8 +21,8 @@ function Timeline(propriedades, playlist) {
       this.listaVideos = [];
     }
     // cria um novo video na coleção
-    newVideo(thumb, title, url) {
-      let p = new registroVideo(thumb, title, url);
+    newVideo(_id, playlist, url) {
+      let p = new registroVideo(_id, playlist[0], url);
       this.listaVideos.push(p);
       return p;
     }
@@ -82,34 +37,27 @@ function Timeline(propriedades, playlist) {
 
   let registro = new listaVideos();
 
-  playlistNames.map((playlistName) => {
-    const videos = propriedades.playlists[playlistName];
-    // console.log(playlist.nome);
-    if (playlist.nome == null) {
-      videos.map((video) => {
-        registro.newVideo(video.thumb, video.title, video.url);
-      });
+  videos.map((video) => {
+    // console.log(video.playlist[0]);
+    // console.log(playlistName);
+    // console.log(playlistName == null);
+    if (playlistName == null) {
+      registro.newVideo(video._id, video.playlist, video.url);
     } else {
-      if (playlist.nome == playlistName) {
-        videos.map((video) => {
-          registro.newVideo(video.thumb, video.title, video.url);
-        });
+      if (video.playlist[0] == playlistName) {
+        registro.newVideo(video._id, video.playlist, video.url);
       }
     }
   });
 
-  //console.log(registro);
-  // registro.todosVideos.map((element) => {
-  //   console.log(element);
-  // });
-
+  // console.log(registro.todosVideos);
   return (
     <section className="max-w-screen-xl grid grid-cols-1 xl:grid-cols-2 gap-2 mt-2 content-center mx-auto p-4 ">
       {registro.todosVideos.map((element) => {
         return (
           <div
             className="flex flex-wrap justify-center box-content h-200 w-200 p-4"
-            key={element.url}
+            key={element._id}
           >
             <iframe
               className="aspect-video lg:h-80"
@@ -130,23 +78,24 @@ function Timeline(propriedades, playlist) {
 
 export default function Videos(props) {
   const [video, setVideos] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     api.get("/courses/").then((response) => {
       setVideos(response.data);
+      setIsLoading(false);
     });
   }, []);
 
-  if (!video) return null;
+  //console.log(video);
 
-  console.log(video);
-  console.log(video[0].playlist);
-
-  // console.log(props);
-  return (
+  //console.log(props.nome);
+  return isLoading ? (
+    <Loading />
+  ) : (
     //<div className="container mx-auto p-4">
 
-    <div>{Timeline(dados, props)}</div>
+    <div>{Timeline(video, props.nome)}</div>
     //    </div>
   );
 }

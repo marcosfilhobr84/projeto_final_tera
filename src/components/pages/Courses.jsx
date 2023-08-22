@@ -9,7 +9,7 @@ export default function Courses() {
   let { playlist } = useParams();
   //https://ateliware.com/blog/react-router
   //https://www.freecodecamp.org/news/search-and-filter-component-in-reactjs/
-  // console.log(playlist);
+  //console.log(playlist);
   return (
     <div>
       <Header />
